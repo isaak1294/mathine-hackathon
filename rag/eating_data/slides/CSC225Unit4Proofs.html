@@ -1,0 +1,3204 @@
+---
+{
+  "doc_type": "slides",
+  "source": "/home/isaak/projects/course-to-md/CSC225/Slides/CSC225Unit4Proofs.pdf",
+  "pages": 39,
+  "avg_landscape": true,
+  "words_est_first2pages": 134,
+  "hash": "80b68eaa04ae861f"
+}
+---
+
+<span id="1"></span>
+
+<div id="page1-div" style="position:relative;width:1440px;height:810px;">
+
+Unit 04:  
+Proofs
+
+Anthony Estey
+
+CSC 225: Algorithms and Data Structures I
+
+University of Victoria
+
+\*Thanks to Dr. Rich Little at the University of Victoria for providing some of the contents of these slides
+
+</div>
+
+<span id="2"></span>
+
+<div id="page2-div" style="position:relative;width:1440px;height:810px;">
+
+Unit 04 Overview
+
+
+
+Supplemental Reading:
+
+
+
+Algorithm Design and Analysis. *Michael Goodrich and Roberto Tamassia*
+
+
+
+Pages 10, 19-25
+
+
+
+Learning Objectives: (You should be able to…)
+
+
+
+write proofs using the following proof techniques: *proof by counterexample,   
+direct proofs, proof by contrapositive, and proof by contradiction*
+
+
+
+understand the steps necessary for and how to write a proof by induction
+
+
+
+understand the steps necessary for and be able to write a loop invariant proof
+
+
+
+determine the loop invariant by examining the pseudocode for an algorithm
+
+2
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="3"></span>
+
+<div id="page3-div" style="position:relative;width:1440px;height:810px;">
+
+Introduction
+
+
+
+Why is there a proofs unit in this course?
+
+
+
+As we explore different algorithms and data structures, we will make   
+strong claims about the correctness or speed of the algorithm
+
+
+
+This unit overviews several ways we will justify, or 
+
+***prove***
+
+, these claims
+
+3
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="4"></span>
+
+<div id="page4-div" style="position:relative;width:1440px;height:810px;">
+
+Techniques covered
+
+
+
+In this unit, we will first review some common proof techniques:
+
+
+
+Counterexample
+
+
+
+Direct proof
+
+
+
+Contrapositive
+
+
+
+Contradiction
+
+
+
+Induction
+
+
+
+And also introduce a new technique you may not have seen before:
+
+
+
+Loop Invariant
+
+4
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="5"></span>
+
+<div id="page5-div" style="position:relative;width:1440px;height:810px;">
+
+Counterexample
+
+
+
+To prove something is true, in general, you must do so for all possible   
+values
+
+
+
+To prove something is false, a single example must be presented   
+illustrating that it doesn’t work (is false).
+
+
+
+Worksheet example: 
+
+𝑎
+
+2
+
+\+ 𝑏
+
+2
+
+\= (𝑎 + 𝑏)
+
+2
+
+5
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="6"></span>
+
+<div id="page6-div" style="position:relative;width:1440px;height:810px;">
+
+Direct Proof
+
+
+
+To prove 
+
+𝑃 ⇒ 𝑄
+
+directly, we consider an element 
+
+𝑥
+
+for which 
+
+𝑃(𝑥)
+
+is 
+
+true and show 
+
+𝑄(𝑥)
+
+is also true.
+
+
+
+Worksheet example: 
+
+If 
+
+𝑛
+
+is an odd integer then 
+
+3𝑛 + 7
+
+is an even integer.
+
+6
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="7"></span>
+
+<div id="page7-div" style="position:relative;width:1440px;height:810px;">
+
+Proof by Contrapositive
+
+
+
+The *contrapositive *of 
+
+𝑃 ⇒ 𝑄
+
+is the implication 
+
+¬𝑄 ⇒ ¬𝑃.
+
+
+
+A proof by contrapositive of 
+
+𝑃 ⇒ 𝑄
+
+is a direct proof of 
+
+¬𝑄 ⇒ ¬𝑃
+
+. 
+
+
+
+Another way of putting it: the contrapositive of “if 
+
+𝐴
+
+, then 
+
+𝐵
+
+” is 
+
+“if not 
+
+𝐵
+
+, then not 
+
+𝐴
+
+.”
+
+
+
+Worksheet examples:
+
+a)
+
+Let 
+
+𝑛
+
+be an integer. If 
+
+5𝑛 − 7
+
+is even, then 
+
+𝑛
+
+is odd.
+
+b)
+
+Let 
+
+𝐴
+
+and 
+
+𝐵
+
+be sets. If 
+
+𝐴 ∪ 𝐵 = 𝐴
+
+, then 
+
+𝐵 ⊆ 𝐴
+
+7
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="8"></span>
+
+<div id="page8-div" style="position:relative;width:1440px;height:810px;">
+
+Proof by contradiction
+
+
+
+To show that 
+
+𝑃 ⇒ 𝑄
+
+is true by contradiction we show that 
+
+¬ 𝑃 ⇒ 𝑄 ⇒⊥
+
+(a contradiction).
+
+
+
+Since 
+
+¬(𝑃 ⇒ 𝑄)
+
+is logically equivalent to 
+
+(𝑃 ∧ ¬ 𝑄)
+
+, we want to show 
+
+that 
+
+𝑃 ∧ ¬ 𝑄 ⇒⊥
+
+(a contradiction).
+
+
+
+Worksheet example:
+
+2
+
+is irrational
+
+8
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="9"></span>
+
+<div id="page9-div" style="position:relative;width:1440px;height:810px;">
+
+Induction
+
+
+
+Formal description from the textbook:
+
+
+
+Let 
+
+𝑆
+
+1
+
+, 𝑆
+
+2
+
+, 𝑆
+
+3
+
+…
+
+be statements such that:
+
+i.
+
+𝑆
+
+1
+
+is true; and
+
+ii.
+
+Whenever 
+
+𝑆
+
+𝑘
+
+is true, where 
+
+𝑘 ∈ ℕ
+
+, then 
+
+𝑆
+
+𝑘+1
+
+is true
+
+
+
+Then all of the statements 
+
+𝑆
+
+1
+
+, 𝑆
+
+2
+
+, 𝑆
+
+3
+
+…
+
+are true.
+
+
+
+In general, a proof by induction consists of two cases:
+
+**1.**
+
+**Base case**: prove the statement holds for 
+
+𝑛 = 0
+
+**2.**
+
+**Inductive Step: **prove that 
+
+***if***
+
+the statement holds for any given case 
+
+𝑛 = 𝑘
+
+(called the *inductive hypothesis*), 
+
+***then***
+
+it must also hold for the next case, 
+
+𝑛 = 𝑘 + 1
+
+.
+
+9
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="10"></span>
+
+<div id="page10-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+10
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="11"></span>
+
+<div id="page11-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**1.**
+
+**Base case:**
+
+
+
+When 
+
+𝑛 = 1
+
+, the statement is 
+
+1 = 1
+
+2
+
+, which is **true**
+
+11
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="12"></span>
+
+<div id="page12-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+12
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="13"></span>
+
+<div id="page13-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+13
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 =
+
+𝑘 + 1 𝑘 + 1 = 𝑘 + 1
+
+2
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="14"></span>
+
+<div id="page14-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+14
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 =
+
+𝑘 + 1 𝑘 + 1 = 𝑘 + 1
+
+2
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="15"></span>
+
+<div id="page15-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+15
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 =
+
+𝑘 + 1 𝑘 + 1 = 𝑘 + 1
+
+2
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="16"></span>
+
+<div id="page16-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+16
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 = 𝑘 + 1
+
+2
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="17"></span>
+
+<div id="page17-div" style="position:relative;width:1440px;height:810px;">
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+17
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 = 𝑘 + 1
+
+2
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="18"></span>
+
+<div id="page18-div" style="position:relative;width:1440px;height:810px;">
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+1 + 3 + 5 + ⋯ 2 𝑘 − 1 + 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2 𝑘 + 1 − 1 =
+
+𝑘
+
+2
+
+\+ 2𝑘 + 1 = 𝑘 + 1
+
+2
+
+Induction example
+
+
+
+Prove that the sum of the first 
+
+𝑛
+
+odd integers is equal to 
+
+𝑛
+
+2
+
+.           
+
+(The sum of integers 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+)
+
+**2.**
+
+**Inductive Step:**
+
+
+
+*Inductive hypothesis: *Assume the statement holds for 
+
+𝑛 = 𝑘
+
+, for any 
+
+𝑘 ≥ 1
+
+.    
+
+So, here we assume 
+
+1 + 3 + 5 + ⋯ + 2𝑘 − 1 = 𝑘
+
+2
+
+
+
+Show 
+
+𝑛 = 𝑘 + 1
+
+also holds.
+
+
+
+It follows by induction that 
+
+1 + 3 + 5 + ⋯ + (2𝑛 − 1) = 𝑛
+
+2
+
+.
+
+18
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+That is: 
+
+1 + 3 + 5 + ⋯ + 2 𝑘 + 1 − 1 = 𝑘 + 1
+
+2
+
+</div>
+
+<span id="19"></span>
+
+<div id="page19-div" style="position:relative;width:1440px;height:810px;">
+
+Recap: Proof by induction
+
+
+
+In general, a proof by induction consists of:
+
+1\.
+
+Base case:
+
+
+
+Prove the statement for 
+
+𝑛 = 0
+
+(or whatever the base case is) 
+
+
+
+This is typically easy – substitute 0 into n for both sides of the equation and   
+show that they are equal
+
+2\.
+
+Induction Step
+
+i.
+
+Inductive hypothesis: Assume that the statement holds for  
+
+𝑛 = 𝑘
+
+, where 
+
+𝑘
+
+is 
+
+any positive integer
+
+ii.
+
+Given the assumption from the inductive hypothesis, show the statement also   
+holds for 
+
+𝑛 = 𝑘 + 1
+
+.
+
+(Typically involves substitution from the assumption made in the I.H.)
+
+19
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="20"></span>
+
+<div id="page20-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant
+
+
+
+What is a loop invariant?
+
+
+
+An **invariant **is a 
+
+***property***
+
+that is always true at particular points in a 
+
+program
+
+
+
+A **loop invariant **is a 
+
+***property***
+
+that is true before (and after) each 
+
+iteration of a loop 
+
+
+
+We want to prove it is true before the first entering the loop
+
+
+
+We want to prove it *holds *true for all iterations 
+
+
+
+One way of thinking of a loop is that it starts with a true invariant and   
+does work to keep the invariant true for the next iteration of the loop
+
+20
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="21"></span>
+
+<div id="page21-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant
+
+
+
+What is a loop invariant?
+
+
+
+An **invariant **is a 
+
+***property***
+
+that is always true at particular points in a 
+
+program
+
+
+
+A **loop invariant **is a 
+
+***property***
+
+that is true before (and after) each 
+
+iteration of a loop 
+
+21
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="22"></span>
+
+<div id="page22-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Proof
+
+
+
+Formal description:
+
+
+
+To prove a statement 
+
+𝑆
+
+is correct, define 
+
+𝑆
+
+in terms of smaller statements 
+
+𝑆
+
+1
+
+, 𝑆
+
+2
+
+, 𝑆
+
+3
+
+… 𝑆
+
+𝑛
+
+where
+
+i.
+
+𝑆
+
+1
+
+is true before the loop
+
+ii.
+
+𝑆
+
+𝑘
+
+is true before iteration 
+
+𝑘
+
+, where 
+
+1 ≤ 𝑘 ≤ 𝑛
+
+, and based on this assumption we then 
+
+must show that 
+
+𝑆
+
+𝑘+1
+
+is true after iteration 
+
+𝑘
+
+iii.
+
+Thus, 
+
+𝑆
+
+𝑛
+
+implies 
+
+𝑆
+
+is true by induction
+
+
+
+In general, a loop invariant consists of the following cases:
+
+**1.**
+
+**Base case (initialization)**: prove the invariant holds before the loop starts
+
+**2.**
+
+**Inductive Step (maintenance): **prove that 
+
+***if***
+
+the invariant holds right before 
+
+beginning iteration *k *(called the *inductive hypothesis*), 
+
+***then***
+
+it must also hold 
+
+at the end of that iteration (before beginning the next iteration)
+
+**3.**
+
+**\*Termination**: make sure the loop will eventually end\!
+
+22
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="23"></span>
+
+<div id="page23-div" style="position:relative;width:1440px;height:810px;">
+
+
+
+Since the algorithm finds the max value, let’s try:
+
+Loop Invariant Example
+
+
+
+What is the loop invariant? 
+
+
+
+What property is true before we enter   
+the loop, that we want to stay true   
+throughout each iteration, and remain   
+true once the loop has terminated?
+
+23
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value found in the first 
+
+𝑘
+
+elements of the array
+
+</div>
+
+<span id="24"></span>
+
+<div id="page24-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Base case (initialization):
+
+
+
+Before entering the loop, 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the value of 
+
+𝐴\[0\]
+
+
+
+Our loop invariant states that 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+must hold the maximum value in the first                                                        
+
+𝑘
+
+elements in the array.
+
+
+
+Since before we make the first iteration of the loop (the iteration when 
+
+𝑘 = 1
+
+), 
+
+the range of elements from 
+
+0
+
+to 
+
+𝑘
+
+has only one element, 
+
+𝐴 0
+
+.
+
+
+
+So it is trivially true that 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value in this range
+
+
+
+We have proven the loop invariant is true before entering the loop
+
+24
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+</div>
+
+<span id="25"></span>
+
+<div id="page25-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+25
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+</div>
+
+<span id="26"></span>
+
+<div id="page26-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+26
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+</div>
+
+<span id="27"></span>
+
+<div id="page27-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+27
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds maximum 
+
+value of first 
+
+𝑖
+
+elements
+
+𝐴:
+
+</div>
+
+<span id="28"></span>
+
+<div id="page28-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+28
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+</div>
+
+<span id="29"></span>
+
+<div id="page29-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+29
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds maximum 
+
+value of first 
+
+𝑖 + 1
+
+elements
+
+𝑖
+
+\+1
+
+𝐴:
+
+</div>
+
+<span id="30"></span>
+
+<div id="page30-div" style="position:relative;width:1440px;height:810px;">
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+Loop Invariant Example
+
+30
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+𝑖
+
+𝐴:
+
+Now, let’s show the loop invariant holds
+
+</div>
+
+<span id="31"></span>
+
+<div id="page31-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+31
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+</div>
+
+<span id="32"></span>
+
+<div id="page32-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+32
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+During iteration 
+
+𝑖
+
+, if 
+
+𝐴\[𝑖\] \> 𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+, 
+
+then we assign 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+the value of
+
+𝐴\[𝑖\]
+
+</div>
+
+<span id="33"></span>
+
+<div id="page33-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+33
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+During iteration 
+
+𝑖
+
+, if 
+
+𝐴\[𝑖\] \> 𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+, 
+
+then we assign 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+the value of
+
+𝐴\[𝑖\]
+
+</div>
+
+<span id="34"></span>
+
+<div id="page34-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+34
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+As we start iteration 
+
+𝑖 + 1
+
+, the invariant holds
+
+𝑖
+
+\+1
+
+</div>
+
+<span id="35"></span>
+
+<div id="page35-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+35
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+On the other hand, if 
+
+𝐴\[𝑖\] ≯ 𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+, then 
+
+the value of 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+does not change.
+
+𝑖
+
+\+1
+
+</div>
+
+<span id="36"></span>
+
+<div id="page36-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+36
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+On the other hand, if 
+
+𝐴\[𝑖\] ≯ 𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+, then 
+
+the value of 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+does not change.
+
+𝑖
+
+\+1
+
+</div>
+
+<span id="37"></span>
+
+<div id="page37-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Induction Step (maintenance):
+
+1\.
+
+First, consider the *inductive hypothesis:*
+
+\- Assume the invariant holds up to iteration 
+
+𝑖
+
+2\.
+
+Given the assumption from the inductive hypothesis, show the   
+invariant holds at the start of the next iteration, 
+
+𝑖
+
+*+1*
+
+37
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+𝐴:
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+𝑖
+
+\+1
+
+As we start iteration 
+
+𝑖 + 1
+
+, the invariant holds
+
+</div>
+
+<span id="38"></span>
+
+<div id="page38-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariant Example
+
+
+
+Termination:
+
+
+
+The loop ends after 
+
+n − 1
+
+iterations 
+
+
+
+When it ends, we were about to enter the                                                        
+
+𝑛
+
+th iteration
+
+
+
+Therefore, by our recently proven loop invariant, at this point we know 
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value found in the first 
+
+𝑛
+
+elements…
+
+
+
+Which means that the maximum value in the array is returned\!
+
+38
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+holds the maximum value 
+
+found in the first 
+
+𝑘
+
+elements of the array
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+</div>
+
+<span id="39"></span>
+
+<div id="page39-div" style="position:relative;width:1440px;height:810px;">
+
+Loop Invariants: Why?
+
+
+
+They are used for software verification and validation methods
+
+
+
+They can be essential in understanding the effects of a loop, or even   
+help us in solving a problem (writing the loop):
+
+
+
+What do we need to be true before we first enter the loop?
+
+
+
+How can we ensure this property stays true after each iteration?
+
+
+
+Does the loop eventually terminate?
+
+
+
+This allows us to verify the solution works\!
+
+39
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
