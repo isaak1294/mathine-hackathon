@@ -1,0 +1,1607 @@
+---
+{
+  "doc_type": "slides",
+  "source": "/home/isaak/projects/course-to-md/CSC225/Slides/CSC225Unit2Pseudocode.pdf",
+  "pages": 30,
+  "avg_landscape": true,
+  "words_est_first2pages": 154,
+  "hash": "ca7f07b2dd2016d9"
+}
+---
+
+<span id="1"></span>
+
+<div id="page1-div" style="position:relative;width:1440px;height:810px;">
+
+Unit 02:  
+Pseudocode and Counting
+
+Anthony Estey
+
+CSC 225: Algorithms and Data Structures I
+
+University of Victoria
+
+\*Thanks to Dr. Rich Little at the University of Victoria for providing some of the contents of these slides
+
+</div>
+
+<span id="2"></span>
+
+<div id="page2-div" style="position:relative;width:1440px;height:810px;">
+
+Unit 02 Overview
+
+
+
+Supplemental Reading:
+
+
+
+Algorithm Design and Analysis. *Michael Goodrich and Roberto Tamassia*
+
+
+
+Pages 1 - 9
+
+
+
+Learning Objectives: (You should be able to…)
+
+
+
+understand why we will use pseudocode to support or analysis of algorithms   
+and data structures
+
+
+
+understand the syntax of pseudocode, and how it maps to operations in a   
+programming language like Java, C, or C++
+
+
+
+understand the methodology we will use in this course to analyze algorithms   
+and data structures, based on the size of the input data, *n*
+
+
+
+determine the number of operations required to execute an algorithm through   
+an analysis of pseudocode
+
+2
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="3"></span>
+
+<div id="page3-div" style="position:relative;width:1440px;height:810px;">
+
+Algorithms and Data structures
+
+
+
+An **algorithm **is a step-by-step procedure for performing some task in a   
+finite amount of time
+
+
+
+A **data structure **is a systematic way of organizing and accessing data
+
+
+
+Analysis:
+
+
+
+In the world of IT, 
+
+***scalability***
+
+refers to the ability of a system to gracefully 
+
+accommodate growing sizes of inputs or amounts of workload
+
+
+
+The main focus of our analysis will be to character 
+
+***running time***
+
+*,*
+
+
+
+but it is also important to consider 
+
+***space usage ***
+
+as well
+
+3
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="4"></span>
+
+<div id="page4-div" style="position:relative;width:1440px;height:810px;">
+
+Analysis
+
+
+
+What is the “right” way to analyze an algorithm?
+
+
+
+Idea: We could just execute it and see how long it takes to complete
+
+
+
+Problem: It is difficult to setup a controlled environment to accurately compare   
+two different algorithms
+
+
+
+What is the best input data to test with?
+
+
+
+Probably best to perform several experiments on many different test inputs and   
+with test inputs of various sizes
+
+
+
+What is the best way to interpret / visualize the results?
+
+
+
+Plot on a graph:
+
+
+
+𝑥
+
+\-coordinate represents the input size, 
+
+𝑛
+
+
+
+𝑦
+
+\-coordinate represents the running time, 
+
+𝑡
+
+4
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="5"></span>
+
+<div id="page5-div" style="position:relative;width:1440px;height:810px;">
+
+
+
+Assume our approach is plot multiple input sets on a graph that   
+illustrates the relationship between input size and execution time
+
+
+
+The hardware environment will affect the results (processor, memory, etc)
+
+
+
+and the software environment will too (OS, programming language, compiler)
+
+
+
+So we can’t get you to compare results\!
+
+
+
+If we can control for these variables, we may see something like:
+
+
+
+In a perfect world, our analysis can:
+
+
+
+Take into account all possible inputs
+
+
+
+Evaluate relative efficiency of any two algorithms in a way that   
+is not dependent on the hardware and software environment
+
+Analysis
+
+5
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="6"></span>
+
+<div id="page6-div" style="position:relative;width:1440px;height:810px;">
+
+Analysis
+
+
+
+How can we achieve these goals?
+
+
+
+We want an environment where analysis can be performed that illustrates the   
+efficiency of an algorithm that accounts for all input sizes, without having to   
+implement and execute multiple controlled experiments
+
+
+
+The rest of this unit will focus on an approach that aims to do this
+
+6
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="7"></span>
+
+<div id="page7-div" style="position:relative;width:1440px;height:810px;">
+
+Methodology
+
+
+
+Proposed methodology:
+
+
+
+Associate each algorithm a function 
+
+𝑓(𝑛)
+
+that characterizes the running time of 
+
+the algorithm in terms of the input size 
+
+𝑛
+
+
+
+Methodology requirements:
+
+
+
+A language for describing the algorithms we want to analyze
+
+
+
+Pseudocode
+
+
+
+A metric for measuring algorithm runtime
+
+
+
+Counting primitive operations
+
+
+
+An approach for characterizing the runtimes
+
+
+
+Worse-case analysis (big-Oh)
+
+
+
+Result:
+
+7
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="8"></span>
+
+<div id="page8-div" style="position:relative;width:1440px;height:810px;">
+
+Pseudocode
+
+
+
+Programmers are often asked to describe algorithms in a way that is   
+intended to be read by humans (as opposed to executed by a machine)
+
+
+
+Compared to code, these descriptions should be easier to read and understand
+
+
+
+These descriptions facilitate high-level analysis of a data structure or   
+algorithm – we call such descriptions 
+
+***pseudocode***
+
+8
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="9"></span>
+
+<div id="page9-div" style="position:relative;width:1440px;height:810px;">
+
+Example
+
+public int arrayMax(int\[\] A, int n) { 
+
+int currentMax = A\[0\];   
+for (int k=1; k \< n; k++) { 
+
+if (currentMax \< A\[k\]) {
+
+currentMax = A\[k\]; 
+
+} 
+
+}   
+return currentMax; 
+
+}
+
+9
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+Java code: 
+
+Pseudocode:
+
+</div>
+
+<span id="10"></span>
+
+<div id="page10-div" style="position:relative;width:1440px;height:810px;">
+
+Expressions
+
+
+
+Standard mathematical symbols are used to express numeric and   
+Boolean expressions
+
+
+
+The left arrow sign 
+
+←
+
+is used as the assignment operator
+
+
+
+equivalent to the = operator used for assignment in Java, C, C++, etc
+
+
+
+The equal sign = is used to test equality
+
+
+
+equivalent to using == in Java, C, C++, etc
+
+10
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="11"></span>
+
+<div id="page11-div" style="position:relative;width:1440px;height:810px;">
+
+Method Declarations
+
+
+
+General form:
+
+**Algorithm **name(param1, param2, …):
+
+𝑰𝒏𝒑𝒖𝒕
+
+: \<Description\>
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: \<Description\>
+
+
+
+Specific example:
+
+**Algorithm **arrayMax(
+
+𝐴
+
+, 
+
+𝑛
+
+):
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+11
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="12"></span>
+
+<div id="page12-div" style="position:relative;width:1440px;height:810px;">
+
+Method calls and return statements
+
+
+
+Method call:
+
+
+
+\[object.\]method(args)
+
+
+
+Example: 
+
+𝑎𝑟𝑟𝑎𝑦𝑀𝑎𝑥(𝐴, 13)
+
+
+
+Return statements:
+
+
+
+**return **value
+
+12
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="13"></span>
+
+<div id="page13-div" style="position:relative;width:1440px;height:810px;">
+
+Array indexing and field selection
+
+
+
+𝐴\[𝑖\]
+
+represents the 
+
+𝑖
+
+th cell in the array 
+
+𝐴
+
+
+
+An array of size 
+
+𝑛
+
+is indexed from 
+
+𝐴\[0\]
+
+to 
+
+𝐴\[𝑛 − 1\]
+
+
+
+Dot (.) notation is used to access fields within an structure/object
+
+
+
+𝑟. 𝑘𝑒𝑦
+
+represents the key field in the structure named 
+
+𝑟
+
+13
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="14"></span>
+
+<div id="page14-div" style="position:relative;width:1440px;height:810px;">
+
+Decision structures
+
+
+
+General form:
+
+**if **condition **then**
+
+true-actions
+
+**\[els**e
+
+false-actions\]
+
+**end**
+
+14
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+
+
+General form:
+
+**if **condition **then**
+
+true-actions
+
+**\[els**e
+
+false-actions\]
+
+**end**
+
+
+
+Specific example:
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴\[𝑘\]
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+</div>
+
+<span id="15"></span>
+
+<div id="page15-div" style="position:relative;width:1440px;height:810px;">
+
+Repetition structures: while loops
+
+
+
+General form:
+
+**while **condition **do**
+
+actions
+
+**end**
+
+
+
+Specific example:
+
+**while**
+
+𝑘 \< 𝑛
+
+**do**
+
+𝑐𝑜𝑢𝑛𝑡 ← 2 ∗ 𝑐𝑜𝑢𝑛𝑡  
+𝑘 ← 𝑘 + 1
+
+**end**
+
+15
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="16"></span>
+
+<div id="page16-div" style="position:relative;width:1440px;height:810px;">
+
+Repetition structures: repeat loops
+
+
+
+General form:
+
+**repeat**
+
+actions
+
+**until **condition
+
+
+
+Specific example:
+
+**repeat**
+
+𝑐𝑜𝑢𝑛𝑡 ← 2 ∗ 𝑐𝑜𝑢𝑛𝑡  
+𝑘 ← 𝑘 + 1
+
+**until **
+
+𝑘 ≥ 𝑛
+
+16
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="17"></span>
+
+<div id="page17-div" style="position:relative;width:1440px;height:810px;">
+
+Repetition structures: for loops
+
+
+
+General form:
+
+**for **step-definition **do**
+
+actions
+
+**end**
+
+
+
+Specific example:
+
+**for **
+
+𝑘 ← 1
+
+**to **
+
+𝑛 − 1
+
+𝑐𝑜𝑢𝑛𝑡 ← 2 ∗ 𝑐𝑜𝑢𝑛𝑡
+
+**end**
+
+17
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="18"></span>
+
+<div id="page18-div" style="position:relative;width:1440px;height:810px;">
+
+A metric for measuring algorithm runtime
+
+
+
+Two approaches
+
+
+
+Counting primitive operations and computing upper and lower bounds
+
+
+
+Covered in CSC 115/116, CSC 225, CSC 326, CSC 425, CSC 426, etc.
+
+
+
+Instrument the code to measure computer clock cycles
+
+
+
+Covered in in SENG 265, (and sometimes in projects of higher level Systems courses)
+
+18
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="19"></span>
+
+<div id="page19-div" style="position:relative;width:1440px;height:810px;">
+
+What is the running time?
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+19
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="20"></span>
+
+<div id="page20-div" style="position:relative;width:1440px;height:810px;">
+
+Instrumentation to measure clock cycles (SENG 265)
+
+20
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="21"></span>
+
+<div id="page21-div" style="position:relative;width:1440px;height:810px;">
+
+Instrumentation to measure clock cycles (SENG 265)
+
+
+
+Limitations of this approach:
+
+
+
+We must first implement the algorithm (in Java, C, C++, etc)
+
+
+
+We need to determine which inputs to test, and how many
+
+
+
+We must run all experiments in the same, controlled environment
+
+
+
+Earlier in this unit, our claim was that the methodology we will use in   
+the course will:
+
+
+
+take all possible inputs into account
+
+
+
+compare the efficiency of two different algorithms independent from the   
+underlying hardware and software configurations
+
+
+
+be able to perform the analysis before needed to implement a solution
+
+21
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="22"></span>
+
+<div id="page22-div" style="position:relative;width:1440px;height:810px;">
+
+Using our methodology
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+22
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+Could count line numbers
+
+Why are some arrows   
+colored differently?
+
+What are some other   
+issues with counting line   
+numbers?
+
+</div>
+
+<span id="23"></span>
+
+<div id="page23-div" style="position:relative;width:1440px;height:810px;">
+
+Primitive Operations
+
+
+
+Our approach will be to count primitive operations:
+
+
+
+Assignment statements (A)
+
+
+
+Comparisons (C)
+
+
+
+Boolean expressions (B)
+
+
+
+Array indexing (I)
+
+
+
+Selector/Object references (R)
+
+
+
+Arithmetic operations:
+
+
+
+Add/Subtract (S)
+
+
+
+Multiplication/Division (M)
+
+
+
+Trigonometric operations (sin, cos, tan) (T)
+
+
+
+Method/function calls (M)
+
+23
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+A for-loop declaration has   
+multiple primitive   
+operations (assignment,   
+comparison, addition,   
+possibly array indexing…)
+
+</div>
+
+<span id="24"></span>
+
+<div id="page24-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis
+
+
+
+Categories of algorithm running times:
+
+
+
+Best-case analysis: *T*
+
+*b*
+
+*(n)*
+
+
+
+Average-case analysis: *T*
+
+*a*
+
+*(n)*
+
+
+
+Worst-case analysis: *T(n)*
+
+
+
+Which is the best choice?
+
+24
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+</div>
+
+<span id="25"></span>
+
+<div id="page25-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis
+
+
+
+Average-case
+
+
+
+calculate the expected running times based on a given input data distribution
+
+
+
+requires math and probability theory (we are getting there)
+
+
+
+focused on more in CSC 226 (but mentioned in CSC 225 as well)
+
+
+
+Best-case
+
+
+
+The minimum number of primitive operations (depending on *n*), given the most   
+advantageous and best input configuration of size *n*
+
+
+
+Worst-case:
+
+
+
+What is the maximum number of primitive operations (depending on *n*)   
+executed by the algorithm, taken over all inputs of size *n*?
+
+
+
+Worst-case analysis is most common and may aid in the design of the algorithm
+
+25
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+</div>
+
+<span id="26"></span>
+
+<div id="page26-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis (worst-case)
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+26
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1I + 1A  
+1A
+
+</div>
+
+<span id="27"></span>
+
+<div id="page27-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis (worst-case)
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+27
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1I + 1A  
+1A
+
+How many times is our   
+condition 
+
+k ≤ n − 1
+
+executed?
+
+The 
+
+n-1
+
+times the condition is 
+
+true
+
+, when 
+
+k
+
+is 
+
+1, 2, 3, …, n-1.
+
+Once when the loop is    
+terminated, when 
+
+k = n
+
+.
+
+1A + (n)\*(1C)
+
+</div>
+
+<span id="28"></span>
+
+<div id="page28-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis (worst-case)
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+28
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1I + 1A  
+1A
+
+1A + (n)\*(1C)
+
+After each iteration of the   
+loop, we will increment 
+
+k
+
+by 
+
+1
+
+(sum operation (S) followed by   
+an assignment operation (A)).
+
+This will happen at the end of   
+all
+
+n-1 
+
+iterations of the loop.
+
+1A + (n)\*(1C) + (n-1)\*(1S+1A) 
+
+</div>
+
+<span id="29"></span>
+
+<div id="page29-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis (worst-case)
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+29
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1I + 1A  
+1A + (n)\*(1C) + (n-1)\*(1S+1A)   
+(n-1)\*(1I + 1C)
+
+Similarly, for all 
+
+n-1
+
+iterations 
+
+of the loop the if-statement is   
+executed (an array index (I)   
+and a comparison (C)).
+
+And in the worst-case, we   
+update currentMax each time.
+
+(n-1)\*(1I + 1A)
+
+</div>
+
+<span id="30"></span>
+
+<div id="page30-div" style="position:relative;width:1440px;height:810px;">
+
+Runtime analysis (worst-case)
+
+**Algorithm **arrayMax(
+
+𝐴, 𝑛
+
+)
+
+𝑰𝒏𝒑𝒖𝒕
+
+: An array 
+
+𝐴
+
+storing 
+
+𝑛 ≥ 1
+
+integers
+
+𝑶𝒖𝒕𝒑𝒖𝒕
+
+: The maximum element in 
+
+𝐴
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[0\]
+
+**for**
+
+k ← 1
+
+to 
+
+n − 1
+
+**do**
+
+**if**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 \< 𝐴 𝑘
+
+**then**
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥 ← 𝐴\[𝑘\]
+
+**end**
+
+**end  
+return **
+
+𝑐𝑢𝑟𝑟𝑒𝑛𝑡𝑀𝑎𝑥
+
+30
+
+CSC 225: Algorithms and Data Structures I -- Anthony Estey
+
+1I + 1A  
+1A + (n)\*(1C) + (n-1)\*(1S+1A)   
+(n-1)\*(1I + 1C)
+
+1A
+
+𝑇 𝑛 = 4 + 𝑛 − 1 6 + 𝑛  
+𝑇(𝑛) = 7𝑛 − 2
+
+(n-1)\*(1I + 1A)
+
+</div>
