@@ -1,0 +1,8 @@
+{
+  "embed_family": "openai:text-embedding-3-small",
+  "files": {
+    "Algorithms__Fourth_Edition__by_Michael_Goodrich_and_Roberto_Tamassia__Wiley_.html": {
+      "sha1": "10099f761a04140865a9899919d1c3896ec46ad6"
+    }
+  }
+}

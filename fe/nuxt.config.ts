@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   //devServer: {
@@ -12,14 +11,15 @@ export default defineNuxtConfig({
   //                           (FIX IN PROD, JUST FOR GETTING IT WORKING)
   // ----------------------------------------------------------------------------------------------
 
-  
-
   runtimeConfig: {
     backend_url: "http://localhost:3002",
   },
 
+  // CSS - try absolute path instead
+  css: ['@/assets/css/main.css'],
+
   // Modules
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss"],
 
   compatibilityDate: "2025-04-29",
 });

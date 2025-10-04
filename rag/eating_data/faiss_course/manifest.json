@@ -1,0 +1,32 @@
+{
+  "embed_family": "hf:sentence-transformers/all-MiniLM-L6-v2",
+  "files": {
+    "Algorithms.html": {
+      "sha1": "10099f761a04140865a9899919d1c3896ec46ad6"
+    },
+    "Discrete_Math.html": {
+      "sha1": "a209238505ad1d0af224ab0e78e8e7f43e512d6a"
+    },
+    "CSC225Unit0Introduction.html": {
+      "sha1": "a936ab4dad28ccd7219a4cc5d7ed9a246d6d202c"
+    },
+    "CSC225Unit1DiscreteMath.html": {
+      "sha1": "40dde88eec272c6be73718a306608e629640c959"
+    },
+    "CSC225Unit2Pseudocode.html": {
+      "sha1": "498f970136bfbbbc43261c410e3224ece5659b37"
+    },
+    "CSC225Unit3Recursion.html": {
+      "sha1": "5619b7648aab24e4cb469f77999f8f74983a241f"
+    },
+    "CSC225Unit4Proofs.html": {
+      "sha1": "b3ead85ba3700c08b8a06798a7bd13ba973fd085"
+    },
+    "CSC225Unit5AsymptioticAnalysis.html": {
+      "sha1": "d2651c79bdb498ce7f77a351c29c9349357d563b"
+    },
+    "CSC225Unit6ADTs.html": {
+      "sha1": "874792b21830bed52e49fd11274be65146de5432"
+    }
+  }
+}
