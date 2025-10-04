@@ -1,22 +1,14 @@
 <template>
-	<PageHeader />
-	<slot />
-	<PageFooter />
+  <div class="min-h-screen flex flex-col">
+    <PageHeader />
+    <main class="flex-1">
+      <slot />
+    </main>
+  </div>
 </template>
 
-<script setup lang="ts">
-import PageHeader from '../components/PageHeader.vue'
+<script setup lang="ts"></script>
 
-</script>
-
-
-<style lang="scss">
-	#__nuxt {
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		.uv-main {
-			flex: 1 1 auto;
-		}
-	}
+<style scoped>
+/* Using Tailwind classes instead of SCSS for consistency */
 </style>
