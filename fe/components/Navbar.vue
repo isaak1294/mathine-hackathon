@@ -1,3 +1,4 @@
+<!-- filepath: fe/components/Navbar.vue -->
 <template>
   <nav class="nav">
     <div class="nav-inner">
@@ -5,8 +6,8 @@
         <slot name="brand"><span class="brand-text">Mathiné</span></slot>
       </div>
 
-      <ul class="nav-links" role="menubar">
-        <li v-for="item in items" :key="item.href" role="none">
+      <ul class="nav-links">
+        <li v-for="item in items" :key="item.href">
           <RouterLink
             v-if="useRouterLinks"
             :to="item.href"
@@ -119,30 +120,143 @@ function isActive(href: string) {
   --nav-hover: rgba(255,255,255,.14);
 }
 
-nav.nav { background: var(--nav-bg); color: var(--nav-ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
-.nav-inner { max-width: 1120px; margin: 0 auto; padding: .75rem 1rem; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; }
-.brand-text { font-weight: 800; letter-spacing: .2px; color: var(--nav-ink); font-size: 1.125rem; }
+nav.nav { 
+  background: var(--nav-bg); 
+  color: var(--nav-ink); 
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  position: relative;
+  z-index: 50;
+}
 
-.nav-links { display: none; list-style: none; margin: 0; padding: 0; gap: .25rem; align-items: center; justify-self: end; }
-.nav-link { display: inline-flex; align-items: center; padding: .5rem .75rem; border-radius: 8px; color: var(--nav-ink); text-decoration: none; font-weight: 600; opacity: .95; transition: background 160ms ease, opacity 160ms ease; }
-.nav-link:hover { background: var(--nav-hover); opacity: 1; }
-.nav-link.active, .nav-link[aria-current="page"] { background: rgba(255,255,255,.22); }
+.nav-inner { 
+  max-width: 1120px; 
+  margin: 0 auto; 
+  padding: .75rem 1rem; 
+  display: grid; 
+  grid-template-columns: auto 1fr auto; 
+  align-items: center; 
+  gap: .75rem; 
+}
 
-.nav-toggle { appearance: none; border: 0; background: transparent; padding: .25rem; border-radius: 8px; display: inline-flex; flex-direction: column; gap: 4px; cursor: pointer; }
-.nav-toggle:hover { background: rgba(255,255,255,.12); }
-.bar { width: 22px; height: 2px; background: var(--nav-ink); border-radius: 2px; display: block; }
+.brand-text { 
+  font-weight: 800; 
+  letter-spacing: .2px; 
+  color: var(--nav-ink); 
+  font-size: 1.125rem; 
+}
 
-.nav-drawer { border-top: 1px solid rgba(255,255,255,.15); background: var(--nav-bg); }
-.drawer-links { list-style: none; margin: 0; padding: .5rem; display: grid; gap: .25rem; }
-.drawer-link { display: block; color: var(--nav-ink); text-decoration: none; padding: .625rem .75rem; border-radius: 8px; font-weight: 600; }
-.drawer-link:hover { background: var(--nav-hover); }
-.drawer-link.active, .drawer-link[aria-current="page"] { background: rgba(255,255,255,.22); }
+.nav-links { 
+  display: none; 
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+  gap: .25rem; 
+  align-items: center; 
+  justify-self: end;
+  position: relative;
+  z-index: 10;
+}
 
-.fade-enter-active, .fade-leave-active { transition: opacity 160ms ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
+.nav-link { 
+  display: inline-flex; 
+  align-items: center; 
+  padding: .5rem .75rem; 
+  border-radius: 8px; 
+  color: var(--nav-ink); 
+  text-decoration: none; 
+  font-weight: 600; 
+  opacity: .95; 
+  transition: background 160ms ease, opacity 160ms ease;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+}
+
+.nav-link:hover { 
+  background: var(--nav-hover); 
+  opacity: 1; 
+}
+
+.nav-link.active, .nav-link[aria-current="page"] { 
+  background: rgba(255,255,255,.22);
+  position: relative;
+  z-index: 10;
+}
+
+.nav-toggle { 
+  appearance: none; 
+  border: 0; 
+  background: transparent; 
+  padding: .25rem; 
+  border-radius: 8px; 
+  display: inline-flex; 
+  flex-direction: column; 
+  gap: 4px; 
+  cursor: pointer; 
+  position: relative;
+  z-index: 10;
+}
+
+.nav-toggle:hover { 
+  background: rgba(255,255,255,.12); 
+}
+
+.bar { 
+  width: 22px; 
+  height: 2px; 
+  background: var(--nav-ink); 
+  border-radius: 2px; 
+  display: block; 
+}
+
+.nav-drawer { 
+  border-top: 1px solid rgba(255,255,255,.15); 
+  background: var(--nav-bg);
+  position: relative;
+  z-index: 40;
+}
+
+.drawer-links { 
+  list-style: none; 
+  margin: 0; 
+  padding: .5rem; 
+  display: grid; 
+  gap: .25rem; 
+}
+
+.drawer-link { 
+  display: block; 
+  color: var(--nav-ink); 
+  text-decoration: none; 
+  padding: .625rem .75rem; 
+  border-radius: 8px; 
+  font-weight: 600;
+  background: transparent;
+  position: relative;
+}
+
+.drawer-link:hover { 
+  background: var(--nav-hover); 
+}
+
+.drawer-link.active, .drawer-link[aria-current="page"] { 
+  background: rgba(255,255,255,.22); 
+}
+
+.fade-enter-active, .fade-leave-active { 
+  transition: opacity 160ms ease; 
+}
+
+.fade-enter-from, .fade-leave-to { 
+  opacity: 0; 
+}
 
 @media (min-width: 768px) {
-  .nav-links { display: inline-flex; }
-  .nav-toggle { display: none; }
+  .nav-links { 
+    display: inline-flex; 
+  }
+  .nav-toggle { 
+    display: none; 
+  }
 }
 </style>
