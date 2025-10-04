@@ -1,4 +1,3 @@
-<!-- filepath: fe/components/Icons.vue -->
 <template>
   <svg
     :width="size"
@@ -19,23 +18,26 @@
       <path d="M10,17 12,17"/>
     </template>
     <template v-else-if="name === 'Upload'">
-      <path d="m3 16 4 4 4-4"/>
-      <path d="M7 20V4"/>
-      <path d="m11 4 4 4-4 4"/>
-      <path d="M15 8V20"/>
+      <!-- FIXED: Added the correct upload arrow paths -->
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7,10 12,15 17,10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
     </template>
     <template v-else-if="name === 'X'">
+      <!-- FIXED: Added X icon paths -->
       <path d="m18 6-12 12"/>
-      <path d="M6 6l12 12"/>
+      <path d="m6 6 12 12"/>
     </template>
     <template v-else-if="name === 'CheckCircle2'">
+      <!-- FIXED: Added check circle paths -->
       <circle cx="12" cy="12" r="10"/>
       <path d="m9 12 2 2 4-4"/>
     </template>
     <template v-else-if="name === 'AlertCircle'">
+      <!-- FIXED: Added alert circle paths -->
       <circle cx="12" cy="12" r="10"/>
-      <path d="m9 9 3 3 3-3"/>
-      <path d="M12 17h.01"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <path d="m12 16 .01 0"/>
     </template>
   </svg>
 </template>
@@ -47,5 +49,6 @@ const props = defineProps<{
   className?: string
 }>()
 
+const size = props.size || 24
 const viewBox = '0 0 24 24'
 </script>
