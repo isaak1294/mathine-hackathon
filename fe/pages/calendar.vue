@@ -1,4 +1,3 @@
-<!-- billy test anna's code 9.34pm 3oct-->
 <template>
   <PageMain :title="pageTitle" :layout="pageLayout" v-if="!isLoggedIn">
     <Alert title="You are not logged in!" classes="alert-danger">
