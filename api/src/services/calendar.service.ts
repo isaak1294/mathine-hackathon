@@ -142,4 +142,32 @@ export class CalendarService {
     if (!calendar) throw new Error("Calendar not found or not owned by user");
     await calendarRepository.remove(calendar);
   }
+  static async generateSchedule(courseOutline: string[], netlink: string) { //backend scheduleing, added here
+    // Get all calendar entries for this user
+    const user = await UserService.createOrGet(netlink);
+    if (!user) throw new Error("User not found or could not be created");
+
+    const calendarRepository = general.getRepository(Calendar);
+    const userCalendar = await calendarRepository.find({
+      where: { user: { userid: user.userid } },
+      relations: ["user", "task"],
+      order: { startdatetime: "ASC" }
+    });
+
+    // Simple scheduling: spread topics across available days
+    const schedule: Record<string, string[]> = {};
+    let topicIndex = 0;
+
+    for (const event of userCalendar) {
+      const dateKey = event.startdatetime.toISOString().split("T")[0];
+      if (!schedule[dateKey]) schedule[dateKey] = [];
+
+      if (topicIndex < courseOutline.length) {
+        schedule[dateKey].push(courseOutline[topicIndex]);
+        topicIndex++;
+      }
+    }
+
+    return schedule;
+  }
 }

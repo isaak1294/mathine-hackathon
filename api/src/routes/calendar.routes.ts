@@ -43,4 +43,6 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/schedule", CalendarController.generateSchedule); //added
+
 export default router;

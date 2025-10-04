@@ -94,4 +94,22 @@ export class CalendarController {
       next(error);
     }
   }
+
+  static async generateSchedule(req: Request, res: Response, next: NextFunction) { //added
+    try {
+      const { courseOutline } = req.body;
+      if (!courseOutline) {
+        return res.status(400).json({ message: "Course outline is required" });
+      }
+  
+      const schedule = await CalendarService.generateSchedule(
+        courseOutline,
+        process.env.netID as string
+      );
+  
+      res.status(200).json(schedule);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
